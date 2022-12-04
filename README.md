@@ -124,6 +124,7 @@ Here's how to run a simulation against a given schedule and travel profile.
 
 ```
 $ sim/run sched.csv profile.csv
+
 3y 7m 1w 2d 20h 31m 00s
 ```
 
@@ -135,6 +136,7 @@ connection usually means that subsequent legs have to be canceled as well.
 ```
 $ shuf sched.csv | head -n 40000 > half_sched.csv
 $ sim/run half_sched.csv profile.csv
+
 6y 11m 3w 3d 18h 35m 30s
 ```
 
