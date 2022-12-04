@@ -1,9 +1,0 @@
-(undo-tree-save-format-version . 1)
-"21f707e817a9ec93057093a89130986673346cbb"
-[nil nil nil nil (25482 33439 413553 215000) 0 nil]
-([nil nil ((nil rear-nonsticky nil 1 . 2) (#("
-" 0 1 (fontified nil)) . -348) (1 . 349) (t . -1)) nil (25482 33439 413550 618000) 0 nil])
-([nil nil ((2 . 3)) nil (25482 33439 413547 472000) 0 nil])
-([nil nil ((11 . 16) (11 . 12) (nil syntax-table nil 11 . 12) (nil syntax-table (1) 10 . 11) (10 . 11) (#("\"" 0 1 (fontified nil)) . -10) (undo-tree-id0 . -1) (undo-tree-id1 . -1) (nil syntax-table nil 11 . 12) (nil syntax-table (1) 10 . 11) (10 . 11) (2 . 10) (1 . 2)) nil (25482 33439 413542 716000) 0 nil])
-([nil current ((365 . 366)) nil (25482 33439 413499 77000) 0 nil])
-nil
