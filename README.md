@@ -18,8 +18,8 @@ Format is very simple and follows this schema:
 | To          | String           | Final stop  |
 | When        | Timestamp (UNIX) | Start time  |
 
-TODO: Consider adding a field for number of people that travelled.
-Allows for more compact representation of aggregate information.
+> TODO: Consider adding a field for number of people that travelled.
+> Allows for more compact representation of aggregate information.
 
 #### Example
 
@@ -28,8 +28,10 @@ There are potential privacy issues associated with releasing even de-anonymized
 aggregate information. [Differential-privacy][diff-privacy] is very hard to
 achive for this use-case.
 
-As an example we've generated 10k random trips uniformly sampled from the GTFS
-feed for Linz, Austria. See checked-in `profile.csv` in the current repo.
+As an example we've generated 10K random trips uniformly sampled from the GTFS
+feed for [Linz, Austria][linz].
+
+See `profile.csv` in the current repo:
 
 ```
 $ head profile.csv
@@ -47,3 +49,4 @@ at:44:41164:0,at:44:41056:0,1669878000
 ```
 
 [diff-privacy]: https://en.wikipedia.org/wiki/Differential_privacy
+[linz]: https://en.wikipedia.org/wiki/Linz
