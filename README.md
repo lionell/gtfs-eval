@@ -1,9 +1,16 @@
 # GTFS evaluation
 
-Runs a simulation of people traveling in a transport network specified as GTFS feed.
+Runs a simulation of people traveling in a transport network specified as 
+[GTFS][gtfs] feed.
 Computes "total time spent in transit" for a provided travel profile.
-This effectively evaluates "performance" of the transportation network and allows
+Effectively evaluates "performance" of the transportation network and allows
 to compare 2 networks in a **fair** way.
+
+Tool is composed of 2 parts:
+* `transform.py` - Python script that transforms GTFS feed data into low-level
+  schedule data.
+* `sim` - Routing simulator written in C++ that uses schedule data and travel
+  profile to calculate resulting performance metric.
 
 ## Travel profile
 
@@ -33,8 +40,10 @@ company-issued cards (eg. [ORCA][orca], [Clipper][clipper] cards).
 It's fairly easy to design a way to collect an aggregate data internaly based
 on the information tracked by these cards.
 
-As an example we've generated 10K random trips uniformly sampled from the GTFS
-feed for [Linz, Austria][linz].
+There's a huge body of psychological research done explaining population
+travel patterns based on social behavior. As an example we've generated 10K
+random trips between uniformly sampled stops from the GTFS feed for
+[Linz, Austria][linz] public transportation.
 
 See `profile.csv` in the current repo:
 
@@ -53,15 +62,7 @@ at:44:41234:0,at:44:41110:0,1669852800
 at:44:41164:0,at:44:41056:0,1669878000
 ```
 
-## How to run?
-
-Tool is composed of 2 parts:
-* `transform.py` - Python script that transforms GTFS feed data into low-level
-  schedule data.
-* `sim` - Routing simulator written in C++ that uses schedule data and travel
-  profile to calculate resulting performance metric.
-  
-### GTFS Feed to schedule
+## GTFS Feed to schedule
 
 Transformation tool consumes a valid GTFS feed and produced a _schedule_.
 Which is a low-level joined representation of all the edges in the dynamic
@@ -88,7 +89,7 @@ Output is a CSV file that follows a simple schema:
 | Departure   | Timestamp (UNIX) | Departure time |
 | Arrival     | Timestamp (UNIX) | Arrival time   |
 
-#### Example
+### Example
 
 As an example we'll use a GTFS feed for public transportation in
 [Linz, Austria][linz]. It is checked in as part of this repo (see `linz`).
@@ -109,7 +110,37 @@ at:44:40002:0,at:44:41126:0,1669873680,1669873740
 at:44:40002:0,at:44:41126:0,1669874400,1669874520
 ```
 
+## Simulation
+
+We've implemented a simple routing engine based on the
+[Dijkstra's algorithm][dijkstra] that works on the dynamic(time-based) routing
+graph.
+
+Building simulator is as simple as running `cd sim && make`.
+
+### Example
+
+Here's how to run a simulation against a given schedule and travel profile.
+
+```
+$ sim/run sched.csv profile.csv
+3y 7m 1w 2d 20h 31m 00s
+```
+
+We can use this to see how much worse the transit will become if we randomly
+remove half of the edges in this graph. Keep in mind that this is not a very
+realistic scenario as it doesn't account for the fact that canceling a
+connection usually means that subsequent legs have to be canceled as well.
+
+```
+$ shuf sched.csv | head -n 40000 > half_sched.csv
+$ sim/run half_sched.csv profile.csv
+6y 11m 3w 3d 18h 35m 30s
+```
+
+[gtfs]: https://gtfs.org
 [diff-privacy]: https://en.wikipedia.org/wiki/Differential_privacy
 [linz]: https://en.wikipedia.org/wiki/Linz
 [orca]: https://www.myorca.com
 [clipper]: https://www.clippercard.com
+[dijkstra]: https://en.wikipedia.org/wiki/Dijkstra%27s_algorithm
