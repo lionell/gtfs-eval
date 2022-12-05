@@ -11,6 +11,16 @@ Tool is composed of 2 parts:
   schedule data.
 * `sim` - Routing simulator written in C++ that uses schedule data and travel
   profile to calculate resulting performance metric.
+  
+This work enables evaluation of the current transit and checking whether
+"proposed" transit is better or worse. Whenever creating a proposal it's
+important to control for the infrastructural "cost" (eg. number of physical
+buses, route feasibility, etc).
+
+It's an open question how to make transit better, but this tool allows to
+check this hypothesis. One obvious way would be to run genetic algorithm
+to randomly modify feed and evaluate against the same profile.
+Reinforcement Learning approach can be considered as well.
 
 ## Travel profile
 
@@ -139,6 +149,8 @@ $ sim/run half_sched.csv profile.csv
 
 6y 11m 3w 3d 18h 35m 30s
 ```
+
+As we can see this lead to doubling total time in transit for people.
 
 [gtfs]: https://gtfs.org
 [diff-privacy]: https://en.wikipedia.org/wiki/Differential_privacy
