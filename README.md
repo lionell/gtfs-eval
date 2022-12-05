@@ -1,5 +1,7 @@
 # GTFS evaluation
 
+![Stable Diffusion generated photo of Linz, Austria](linz.jpeg)
+
 Runs a simulation of people traveling in a transport network specified as 
 [GTFS][gtfs] feed.
 Computes "total time spent in transit" for a provided travel profile.
